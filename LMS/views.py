@@ -13,6 +13,17 @@ from rest_framework.permissions import AllowAny
 def home(request):
   return render(request, "index.html")
 
+def categories(request):
+  return render(request, "categories.html")
+
+def AddBook(request):
+  if request.method == "POST":
+    title = request.POST("title")
+    price = request.POST("price")
+    author = request.POST("author")
+    description = request.POST("description")
+  return render(request, "add-book.html")
+
 
 class UserView(ModelViewSet):
   queryset = User.objects.all()
