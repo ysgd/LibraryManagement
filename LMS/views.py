@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .models import User,Book
-from .serializers import UserSerializer
+from .models import User,Book,Author,Category
+from .serializers import UserSerializer, BookSerializer, AuthorSerializer,CategorySerializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
@@ -13,16 +13,21 @@ from rest_framework.permissions import AllowAny
 def home(request):
   return render(request, "index.html")
 
-def categories(request):
+def categories(request,id):
   return render(request, "categories.html")
 
-def AddBook(request):
-  if request.method == "POST":
-    title = request.POST("title")
-    price = request.POST("price")
-    author = request.POST("author")
-    description = request.POST("description")
-  return render(request, "add-book.html")
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class AuthorViewSet(ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+class AddBook(ModelViewSet):
+  queryset = Book.objects.all()
+  serializer_class = BookSerializer
+  permission_classes = [AllowAny]
 
 
 class UserView(ModelViewSet):
