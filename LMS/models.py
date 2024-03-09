@@ -14,4 +14,9 @@ class User(AbstractUser):
 class Book(models.Model):
   title = models.CharField(max_length=50)
   price = models.IntegerField()
+  author = models.CharField(max_length=50)
+  description = models.TextField()
+  
+
+  
   
