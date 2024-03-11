@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Book, Author, Category
+from .models import User, Book, Author, Categories
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -9,12 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ('name')
         
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Category
-        fields = ['name']
+        model = Categories
+        fields = ('name')
     
 class BookSerializer(serializers.ModelSerializer):
   author = AuthorSerializer()

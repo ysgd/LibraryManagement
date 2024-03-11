@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .models import User,Book,Author,Category
+from .models import User,Book,Author,Categories
 from .serializers import UserSerializer, BookSerializer, AuthorSerializer,CategorySerializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
@@ -13,16 +13,18 @@ from rest_framework.permissions import AllowAny
 def home(request):
   return render(request, "index.html")
 
-def categories(request,id):
+def categories(request):
   return render(request, "categories.html")
 
 class CategoryViewSet(ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Categories.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [AllowAny]
 
 class AuthorViewSet(ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    permission_classes = [AllowAny]
 
 class AddBook(ModelViewSet):
   queryset = Book.objects.all()

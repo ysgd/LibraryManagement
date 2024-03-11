@@ -14,14 +14,14 @@ class User(AbstractUser):
 class Author(models.Model):
     name = models.CharField(max_length=100)
     
-class Category(models.Model):
+class Categories(models.Model):
 	name = models.CharField(max_length=30)
   
 class Book(models.Model):
   title = models.CharField(max_length=50)
   price = models.IntegerField()
   author = models.ForeignKey(Author, on_delete=models.CASCADE,null=True)
-  categories = models.ManyToManyField(Category,related_name="books")
+  categories = models.ManyToManyField(Categories)
   description = models.TextField(null=True)
   
 
