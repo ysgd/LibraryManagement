@@ -3,28 +3,35 @@ from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from .models import User,Book,Author,Categories
-from .serializers import UserSerializer, BookSerializer, AuthorSerializer,CategorySerializer
+from .serializers import UserSerializer, BookSerializer, AuthorSerializer,CategorySerializer, GroupSerializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import Group
 
 # Create your views here.
-def home(request):
-  return render(request, "index.html")
+# def home(request):
+#   return render(request, "index.html")
 
-def categories(request):
-  return render(request, "categories.html")
+# def categories(request):
+#   return render(request, "categories.html")
+
+
+class GroupView(ModelViewSet):
+  queryset = Group.objects.all()
+  serializer_class = GroupSerializer
+  permission_classes = [AllowAny]
 
 class CategoryViewSet(ModelViewSet):
-    queryset = Categories.objects.all()
-    serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
+  queryset = Categories.objects.all()
+  serializer_class = CategorySerializer
+  permission_classes = [AllowAny]
 
 class AuthorViewSet(ModelViewSet):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = [AllowAny]
+  queryset = Author.objects.all()
+  serializer_class = AuthorSerializer
+  permission_classes = [AllowAny]
 
 class AddBook(ModelViewSet):
   queryset = Book.objects.all()

@@ -1,5 +1,12 @@
 from rest_framework import serializers
 from .models import User, Book, Author, Categories
+from django.contrib.auth.models import Group
+
+
+class GroupSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Group
+    fields = ['id','name']
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -9,12 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ('name')
+        fields = ('name',)
         
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Categories
-        fields = ('name')
+        fields = ('name',)
     
 class BookSerializer(serializers.ModelSerializer):
   author = AuthorSerializer()
