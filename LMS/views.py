@@ -36,6 +36,7 @@ class AuthorViewSet(ModelViewSet):
 class AddBook(ModelViewSet):
   queryset = Book.objects.all()
   serializer_class = BookSerializer
+  search_fields = ['title']
   permission_classes = [AllowAny]
 
 

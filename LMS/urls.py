@@ -3,8 +3,6 @@ from django.urls import path
 from .views import UserView, AddBook, AuthorViewSet, CategoryViewSet, GroupView
 
 urlpatterns = [
-    # path('', home, name="home"),
-    # path('categories/',categories, name="categories"),
     path('category/',CategoryViewSet.as_view({'get':'list','post':'create'})),
     path('category/<int:pk>/',CategoryViewSet.as_view({'get':'retrieve','put':'update','delete':'destroy'})),
     path('author/',AuthorViewSet.as_view({'get':'list','post':'create'}),name="author"),
