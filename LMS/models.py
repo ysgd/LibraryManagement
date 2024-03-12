@@ -12,17 +12,26 @@ class User(AbstractUser):
   REQUIRED_FIELDS = ['username']
   
 class Author(models.Model):
-    name = models.CharField(max_length=100)
+  name = models.CharField(max_length=100)
     
 class Categories(models.Model):
 	name = models.CharField(max_length=30)
   
+
+  
 class Book(models.Model):
   title = models.CharField(max_length=50)
+  cover = models.ImageField(upload_to="static/images/cover", height_field=None, width_field=None, max_length=None, default="")
   price = models.IntegerField()
   author = models.ForeignKey(Author, on_delete=models.CASCADE,null=True)
   categories = models.ManyToManyField(Categories)
   description = models.TextField(null=True)
+  media = models.FileField(null=True, blank=True)
+  
+  def __str__(self):
+    return self.title
+  
+
   
 
   
